@@ -15,10 +15,32 @@ import AlamofireNetworkActivityIndicator
 class ApiService: NSObject {
     
     static let sharedInstance = ApiService()
+    let domainURL = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/")
     
     func fetchVideos(completion: @escaping ([Video]) -> ()) {
-        let apiToContact = "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json"
-        Alamofire.request(apiToContact).validate().responseJSON() { response in
+        /*fetchFeedForURLString(urlString: "home") { (videos) in
+            completion(videos)
+        }*/
+        fetchFeedForURLString(urlString: "home", completion: completion)
+    }
+    
+    func fetchTrendingFeed(completion: @escaping ([Video]) -> ()) {
+        /*fetchFeedForURLString(urlString: "trending") { (videos) in
+            completion(videos)
+        }*/
+        fetchFeedForURLString(urlString: "trending", completion: completion)
+    }
+    
+    func fetchSubscriptionFeed(completion: @escaping ([Video]) -> ()) {
+        /*fetchFeedForURLString(urlString: "subscriptions") { (videos) in
+            completion(videos)
+        }*/
+        fetchFeedForURLString(urlString: "subscriptions", completion: completion)
+    }
+    
+    func fetchFeedForURLString(urlString: String, completion: @escaping ([Video]) -> ()) {
+        let url  = domainURL?.appendingPathComponent("\(urlString).json")
+        Alamofire.request(url!).validate().responseJSON() { response in
             switch response.result {
             case .success:
                 if let value = response.result.value {
@@ -27,6 +49,7 @@ class ApiService: NSObject {
                     var videos = [Video]()
                     for dictionary in json.arrayValue {
                         let video = Video(json: dictionary)
+                        // setValuesForKeysWithDictionary(dictionary)
                         videos.append(video)
                     }
                     print(json)

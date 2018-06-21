@@ -34,7 +34,7 @@ class VideoCell : BaseCell {
             if let channelName = video?.channel?.name, let numberofViews = video?.numberOfViews {
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                let numViews = numberFormatter.string(from: numberofViews)
+                let numViews = numberFormatter.string(from: numberofViews)!
                 let subtitleText = "\(channelName)  - \(String(describing: numViews)) - 2 years ago"
                 
                 subtitleTextView.text = subtitleText
@@ -42,22 +42,15 @@ class VideoCell : BaseCell {
         }
     }
     
-    /*func setupImage(url: String, imageView : UIImageView) {
-        if let imageURL = url {
-            imageView.af_setImage(withURL: URL(string: imageURL)!)
-        }
-    }*/
-    //let imageCache = NSCache()
-    
     func setupThumbnailImage() {
         if let thumbnailImageURL = video?.thumbnailImageName {
-            userProfileImageView.kf.setImage(with: URL(string: thumbnailImageURL)!)
+            thumbnailImageView.kf.setImage(with: URL(string: thumbnailImageURL)!)
         }
     }
     
     func setupChannelImage() {
         if let profileImageURL = video?.channel?.profileImageName {
-            thumbnailImageView.kf.setImage(with: URL(string: profileImageURL)!)
+            userProfileImageView.kf.setImage(with: URL(string: profileImageURL)!)
         }
     }
     

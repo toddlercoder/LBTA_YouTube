@@ -15,12 +15,14 @@ class Video: NSObject {
     var channel: Channel?
     var numberOfViews: NSNumber?
     var uploadDate: NSDate?
+    var duration: Int?
     
     init(json: JSON) {
         self.thumbnailImageName = json["thumbnail_image_name"].stringValue
         self.title = json["title"].stringValue
         self.numberOfViews = json["number_of_views"].int64Value as NSNumber
         self.channel = Channel(json: json["channel"])
+        self.duration = json["duration"].intValue
     }
 }
 

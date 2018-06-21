@@ -115,9 +115,11 @@ class MenuCell: BaseCell {
         super.setupViews()
         
         addSubview(imageView)
+        
+        // image of size 25x25
         addConstraintsWithFormat(format: "H:[v0(25)]", views: imageView)
         addConstraintsWithFormat(format: "V:[v0(25)]", views: imageView)
-        
+        // centered vertically and horizontally
         addConstraints([NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)])
         addConstraints([NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)])
     }
